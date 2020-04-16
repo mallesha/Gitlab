@@ -1,0 +1,45 @@
+https://docs.gitlab.com/omnibus/docker/
+
+Set the installation folder
+================================
+
+Configure a new enviroment variable $GITLAB_HOME pointing to the folder where the configuration, logs and data files will reside. Ensure that the folder exists and appropriate permission have been granted.
+For Linux users set the path to /srv
+export GITLAB_HOME=/srv
+
+Run the image
+================================
+
+Run the image:
+sudo docker run --detach \
+  --hostname gitlab.example.com \    <<<< make sure the hostname of the VM is correct
+  --publish 443:443 --publish 80:80 --publish 22:22 \
+  --name gitlab \
+  --restart always \
+  --volume $GITLAB_HOME/gitlab/config:/etc/gitlab \
+  --volume $GITLAB_HOME/gitlab/logs:/var/log/gitlab \
+  --volume $GITLAB_HOME/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest
+
+This will download and start a GitLab CE container and publish ports needed to access SSH, HTTP and HTTPS. All GitLab data will be stored as subdirectories of $GITLAB_HOME/gitlab. The container will automatically restart after a system reboot.
+You can now login to the web interface as explained in After starting a container.
+
+make sure port 22 is available for the gitlab, if you are using port 22 for ssh service that should be released.
+just a work around to bring up the gitlab on port 22
+
+================================ 
+sudo docker restart can be used to restrat the docker process
+
+Git lab logs can be seen
+
+sudo docker logs -f gitlab 
+
+wait for the gitlab server to come up.
+
+
+check the gitlab web gui access
+
+gitlab.example.com or ip address o fthe host.
+
+
+
