@@ -1,0 +1,3 @@
+cisco nso installation in cicd method in gitlab
+
+https://gitlab.flint.si/tools/nso-tools/nso-docker/-/blob/master/.gitlab-ci.yml
